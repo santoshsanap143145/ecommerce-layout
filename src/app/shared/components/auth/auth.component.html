@@ -1,1 +1,116 @@
-<p>auth works!</p>
+<div class="container-fluid">
+  <div class="row margin">
+    <div class="col-md-8 mb-5 mb-md-0">
+      <div class="authBanner">
+        <img
+          src="https://static.vecteezy.com/system/resources/previews/034/962/715/non_2x/shopping-cart-on-smartphone-screen-shop-mobile-application-vector.jpg"
+          alt="Banner"
+          class="img-thumbnail"
+          title="Banner"
+        />
+      </div>
+    </div>
+
+    <div class="col-md-4 margin-top">
+      <!-- SIGN UP FORM -->
+      <div class="form" *ngIf="!hasAccount">
+        <h2 class="mb-3">Create an account</h2>
+        <h6 class="mb-3">Enter your details below</h6>
+        <form [formGroup]="signUpForm" (ngSubmit)="onSignUp()">
+          <div class="d-flex flex-column bg-white formField">
+            <mat-form-field class="" appearance="legacy">
+              <mat-label>Email</mat-label>
+              <input
+                matInput
+                placeholder="pat@example.com"
+                formControlName="email"
+              />
+            </mat-form-field>
+            <mat-form-field class="" appearance="legacy">
+              <mat-label>Password</mat-label>
+              <input
+                formControlName="password"
+                matInput
+                [type]="hide ? 'password' : 'text'"
+              />
+              <button mat-icon-button matSuffix (click)="hide = !hide">
+                <mat-icon>{{
+                  hide ? "visibility_off" : "visibility"
+                }}</mat-icon>
+              </button>
+            </mat-form-field>
+            <mat-form-field appearance="legacy">
+              <mat-label>User Role</mat-label>
+              <mat-select  formControlName="userRole">
+                <mat-option value="buyer">Buyer</mat-option>
+                <mat-option value="admin">Admin</mat-option>
+                <mat-option value="superAdmin">Super Admin</mat-option>
+              </mat-select>
+            </mat-form-field>
+            <button class="btn btn-danger" style="padding: 10px">
+              Create Account
+            </button>
+            <button
+              type="button"
+              class="btn btn-white border border-secondary mt-3"
+              style="padding: 10px"
+            >
+              <img
+                src="https://developers.google.com/identity/images/g-logo.png"
+                alt="Google logo"
+                width="20"
+                height="20"
+                style="margin-right: 8px"
+              />
+              Sign up with Google
+            </button>
+          </div>
+        </form>
+      </div>
+
+      <!-- LOG IN FORM -->
+      <div class="form" *ngIf="hasAccount">
+        <h2 class="mb-3">Log in to Exclusive</h2>
+        <h6 class="mb-3">Enter your details below</h6>
+        <form [formGroup]="logInForm" (ngSubmit)="onLogin()">
+          <div class="d-flex flex-column bg-white formField">
+            <mat-form-field class="" appearance="legacy">
+              <mat-label>Email</mat-label>
+              <input
+                matInput
+                placeholder="pat@example.com"
+                formControlName="email"
+              />
+            </mat-form-field>
+            <mat-form-field class="" appearance="legacy">
+              <mat-label>Password</mat-label>
+              <input
+                formControlName="password"
+                matInput
+                [type]="hide ? 'password' : 'text'"
+              />
+              <button mat-icon-button matSuffix (click)="hide = !hide">
+                <mat-icon>{{
+                  hide ? "visibility_off" : "visibility"
+                }}</mat-icon>
+              </button>
+            </mat-form-field>
+            <button class="btn btn-danger" style="padding: 10px">
+              Log In
+            </button>
+          </div>
+        </form>
+      </div>
+
+      <p class="text-secondary mt-4">
+        {{ hasAccount ? "Don't have account?" : "Already have account?" }}
+        <strong
+          style="text-decoration: underline; font-size: 20px; cursor: pointer"
+          (click)="hasAccount = !hasAccount"
+          class="ml-3 text-danger"
+          >{{ hasAccount ? "Sign Up" : "Log in" }}</strong
+        >
+      </p>
+    </div>
+  </div>
+</div>

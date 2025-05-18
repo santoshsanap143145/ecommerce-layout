@@ -1,3 +1,5 @@
 export const environment = {
-  production: true
+  production: true,
+  baseUrl: `https://ecom-backend-omega-six.vercel.app`,
+  authUrl: `https://auth-git-main-iamrkjs-projects.vercel.app`
 };
