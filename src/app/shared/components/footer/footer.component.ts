@@ -7,9 +7,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class FooterComponent implements OnInit {
 
-  constructor() { }
+  email: string = '';
+
+ nstructor() { }
 
   ngOnInit(): void {
   }
 
+   onSubscribe() {
+    if (this.email) {
+      console.log('Subscribed with:', this.email);
+      // Ideally send email to backend
+      this.email = '';
+    }
+  }
 }

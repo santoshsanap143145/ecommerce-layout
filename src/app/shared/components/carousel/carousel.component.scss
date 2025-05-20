@@ -1,0 +1,38 @@
+
+.carousel-wrapper {
+  width: 100%;
+  position: relative;
+}
+
+
+.carIndicators li {
+  width: 14px;
+  height: 14px;
+  background-color: #000;
+  border-radius: 50%;
+  margin: 0 5px;
+  opacity: 0.5;
+  transition: opacity 0.3s;
+  border: 2px solid #fff;
+}
+
+.carIndicators .active {
+  opacity: 2;
+  background-color: #d10000;
+}
+
+
+.carItem {
+  height: 337px;
+  background-color: #000;
+}
+
+.carItem img {
+  height: 100%;
+  object-fit: cover;
+}
+
+.red{
+    background-color: #ff0000;
+    padding: 10px;
+}

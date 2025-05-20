@@ -10,10 +10,11 @@ import { IlogIn, IsignIn } from '../models/auth.model';
 })
 export class AuthService {
   AUTH_URL: string = `${environment.authUrl}`;
+
   constructor(private _http: HttpClient, private _router: Router) {}
 
 
-  //Register User (sign up)
+
 
   signIn(userDetail: IsignIn): Observable<any> {
     return this._http.post<any>(
@@ -22,14 +23,14 @@ export class AuthService {
     );
   }
 
-  //Log in User
+
 
   login(userDetail: IlogIn): Observable<any> {
     let LOGIN_URL = `${this.AUTH_URL}/api/auth/login`;
     return this._http.post<any>(LOGIN_URL, userDetail);
   }
 
-  // save token and useRole in local storage
+
 
   saveToken(token: string) {
     localStorage.setItem('token', token);

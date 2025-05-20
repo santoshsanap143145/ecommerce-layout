@@ -12,9 +12,10 @@ import { ContactComponent } from './shared/components/contact/contact.component'
 import { FooterComponent } from './shared/components/footer/footer.component';
 import { AboutComponent } from './shared/components/about/about.component';
 import { ProductsDashboardComponent } from './shared/components/products-dashboard/products-dashboard.component';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
-
+import Swiper from 'swiper';
+import { CarouselComponent } from './shared/components/carousel/carousel.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -25,6 +26,7 @@ import { HttpClientModule } from '@angular/common/http';
     FooterComponent,
     AboutComponent,
     ProductsDashboardComponent,
+    CarouselComponent,
   ],
   imports: [
     BrowserModule,
@@ -32,7 +34,8 @@ import { HttpClientModule } from '@angular/common/http';
     BrowserAnimationsModule,
     MaterialModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    FormsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
