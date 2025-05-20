@@ -1,16 +1,32 @@
+.category-list {
+  color: #808080;
+  font-weight: 500;
+  &:hover {
+    color: #000;
+    font-weight: 700;
+    background-color: #dad8d8;
+  }
+}
+
 .subcategory-list {
   position: absolute;
   top: 0;
   left: 100%;
   width: 200px;
-  z-index: 1000;
+  z-index: 10;
+  background-color: #fff;
+  font-weight: 500;
+  li:hover {
+    background-color: #f0f0f0;
+    color: #000;
+    font-weight: 700;
+  }
 }
 
-.margin-bottom{
-    margin-bottom: 100px;
+.margin-bottom {
+  margin-bottom: 100px;
 }
 
-
-.padding-top{
-    padding-top: 50px;
+.padding-top {
+  padding-top: 50px;
 }

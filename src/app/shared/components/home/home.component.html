@@ -1,21 +1,30 @@
-<div class="container-fluid margin-bottom">
+<div class="container-fluid margin-bottom" *ngIf="productsArr">
   <div class="row">
     <div class="col-2 offset-1 border-end border-secondary padding-top">
       <ul class="list-group border-right border-dark">
-        <li
-          class="list-group-item position-relative border-0"
-          style="cursor: pointer;"
+        <div
+          class="position-relative"
           *ngFor="let cat of categoryWithSubcategoriesArr; let i = index"
-          (mouseenter)="onHover(i)"
-          (mouseleave)="onLeave()"
+          (mouseenter)="hoveredCategoryIndex = i"
+          (mouseleave)="hoveredCategoryIndex = null"
         >
-          {{ cat.category }}
+          <li
+            class="list-group-item category-list border-0 d-flex justify-content-between align-items-center"
+            style="cursor: pointer;"
+          >
+            <span>{{ cat.category }}</span>
+            <strong class="text-danger" style="font-size: 24px;">{{ hoveredCategoryIndex === i ? '>' : '' }}</strong>
+          </li>
 
           <ul
-            class="list-group subcategory-list bg-white shadow"
+            class="list-group subcategory-list shadow"
             *ngIf="hoveredCategoryIndex === i"
           >
-            <li class="list-group-item  border-0" style="cursor: pointer;" *ngFor="let sub of cat.subcategories">
+            <li
+              class="list-group-item border-0"
+              style="cursor: pointer;"
+              *ngFor="let sub of cat.subcategories"
+            >
               {{ sub }}
             </li>
             <li
@@ -25,7 +34,7 @@
               No subcategories
             </li>
           </ul>
-        </li>
+        </div>
       </ul>
     </div>
 

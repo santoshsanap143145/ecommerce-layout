@@ -22,6 +22,7 @@
       background: transparent;
       color: #fff;
       border: 1px solid #fff;
+      padding: 0;
     }
 
     .btn {
@@ -30,17 +31,23 @@
     }
   }
 
+  .input-group {
+  .form-control,
+  .btn {
+    height: 36px; // Same fixed height
+  }
+}
+
   .social i {
     font-size: 18px;
     margin-right: 10px;
     cursor: pointer;
+    color: #fff;
 
     &:hover {
       color: #ddd;
     }
   }
-
-
 
   .copyright {
     margin-top: 20px;
