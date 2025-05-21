@@ -1,7 +1,7 @@
 <div class="container-fluid margin-bottom" *ngIf="productsArr">
   <div class="row">
-    <div class="col-2 offset-1 border-end border-secondary padding-top">
-      <ul class="list-group border-right border-dark">
+    <div class="col-2 offset-1 border-end border-secondary">
+      <ul class="list-group border-right border-dark padding-top">
         <div
           class="position-relative"
           *ngFor="let cat of categoryWithSubcategoriesArr; let i = index"
@@ -10,10 +10,14 @@
         >
           <li
             class="list-group-item category-list border-0 d-flex justify-content-between align-items-center"
-            style="cursor: pointer;"
+            style="cursor: pointer"
+            [routerLink]="['/products']"
+            [queryParams]="{ category: cat.category }"
           >
             <span>{{ cat.category }}</span>
-            <strong class="text-danger" style="font-size: 24px;">{{ hoveredCategoryIndex === i ? '>' : '' }}</strong>
+            <strong class="text-danger" style="font-size: 24px">{{
+              hoveredCategoryIndex === i ? ">" : ""
+            }}</strong>
           </li>
 
           <ul
@@ -22,8 +26,10 @@
           >
             <li
               class="list-group-item border-0"
-              style="cursor: pointer;"
+              style="cursor: pointer"
               *ngFor="let sub of cat.subcategories"
+              [routerLink]="['/products']"
+              [queryParams]="{ category: cat.category, subcategory: sub }"
             >
               {{ sub }}
             </li>

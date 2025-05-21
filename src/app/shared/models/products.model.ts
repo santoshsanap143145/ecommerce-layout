@@ -12,6 +12,7 @@ export interface Iproduct {
   product_specifications: Array<ProductSpecs> | null;
   category: string;
   subcategory: string;
+  discount: number;
 }
 
 export interface ProductSpecs {

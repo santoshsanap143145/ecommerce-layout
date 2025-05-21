@@ -4,6 +4,7 @@ import { AuthComponent } from './shared/components/auth/auth.component';
 import { HomeComponent } from './shared/components/home/home.component';
 import { ContactComponent } from './shared/components/contact/contact.component';
 import { AboutComponent } from './shared/components/about/about.component';
+import { ProductsDashboardComponent } from './shared/components/products-dashboard/products-dashboard.component';
 
 const routes: Routes = [
   {
@@ -26,6 +27,10 @@ const routes: Routes = [
   {
     path: 'about',
     component: AboutComponent
+  },
+  {
+    path: 'products',
+    component: ProductsDashboardComponent
   },
   
 ];
