@@ -21,8 +21,19 @@ export interface ProductSpecs {
   specification_value: string;
 }
 
-
 export interface ICategoryWithSubcategories {
   category: string;
   subcategories: string[];
+}
+
+export interface IprodResponse {
+  data: Array<Iproduct>;
+  pagination: Ipagination;
+}
+
+export interface Ipagination {
+  hasNextPage: number;
+  limit: number;
+  page: number;
+  totalPages: number;
 }

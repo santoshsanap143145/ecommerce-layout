@@ -1,8 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
-import { Iproduct } from '../models/products.model';
-import { Observable } from 'rxjs';
+import { IprodResponse, Iproduct } from '../models/products.model';
+import { map, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -41,5 +41,8 @@ export class ProductsService {
     }
 
     return this._http.get<Iproduct[]>(url);
+  }
+  fetchSomeProducts(){
+    return this._http.get<IprodResponse>(this.LIMITED_PRODUCTS_URL)
   }
 }

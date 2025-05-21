@@ -1,4 +1,5 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { Component, Input, OnInit, OnDestroy } from '@angular/core';
+import { Iproduct } from '../../models/products.model';
 
 @Component({
   selector: 'app-carousel',
@@ -6,15 +7,26 @@ import { Component, Input, OnDestroy, OnInit } from '@angular/core';
   styleUrls: ['./carousel.component.scss']
 })
 export class CarouselComponent implements OnInit, OnDestroy {
+  @Input() topRatedProducts: Iproduct[] = [];
 
-  constructor(){}
+  currentSlide: number = 0;
+  intervalId: any;
 
-  ngOnInit() {
+  ngOnInit(): void {
+    this.startAutoSlide();
   }
 
-  ngOnDestroy() {
+  ngOnDestroy(): void {
+    clearInterval(this.intervalId);
   }
 
-  
+  startAutoSlide() {
+    this.intervalId = setInterval(() => {
+      this.currentSlide = (this.currentSlide + 1) % this.topRatedProducts.length;
+    }, 3000);
+  }
 
+  goToSlide(index: number) {
+    this.currentSlide = index;
+  }
 }

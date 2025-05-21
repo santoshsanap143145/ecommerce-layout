@@ -34,3 +34,18 @@
     transform: scale(0.92);
   }
 }
+
+
+
+.flashsell{
+  .heading{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    .block{
+      width: 15px;
+      height: 35px;
+      background-color: #dc3545;
+    }
+  }
+}

@@ -15,6 +15,7 @@ export class HomeComponent implements OnInit {
   productsArr!: Array<Iproduct>;
   categoryWithSubcategoriesArr!: Array<ICategoryWithSubcategories>;
   hoveredCategoryIndex: number | null = null;
+  topRatedProductsArr: Iproduct[] = [];
 
   
   constructor(private _productsService: ProductsService) {}
@@ -42,10 +43,12 @@ export class HomeComponent implements OnInit {
         });
 
         this.categoryWithSubcategoriesArr = categoryWithSubcategoriesArr;
-        console.log(this.categoryWithSubcategoriesArr);
+        
+        this.topRatedProductsArr = this.getTopRatedProductPerCategory();
       },
     });
   }
+
 
   onHover(index: number) {
     this.hoveredCategoryIndex = index;
@@ -54,4 +57,25 @@ export class HomeComponent implements OnInit {
   onLeave() {
     this.hoveredCategoryIndex = null;
   }
+
+  getTopRatedProductPerCategory(): Iproduct[] {
+  const topRatedProducts: Iproduct[] = [];
+
+  for (const item of this.categoryWithSubcategoriesArr) {
+    const category = item.category;
+
+    const productsInCategory = this.productsArr.filter(
+      (product) => product.category?.toLowerCase() === category.toLowerCase()
+    );
+
+    if (productsInCategory.length > 0) {
+      const sorted = productsInCategory.sort(
+        (a, b) => (b.rating || 0) - (a.rating || 0)
+      );
+      topRatedProducts.push(sorted[0]);
+    }
+  }
+
+  return topRatedProducts;
+}
 }

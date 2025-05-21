@@ -1,38 +1,138 @@
-
 .carousel-wrapper {
+  background: linear-gradient(135deg, #2e0000 0%, #660000 40%, #cc3300 75%, #ff6600 100%);
   width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
   position: relative;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #fff;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.6);
 }
 
+.carousel-inner {
+  height: 350px;
+  display: flex;
+  align-items: center;
+  padding: 0 30px;
+}
 
-.carIndicators li {
-  width: 14px;
-  height: 14px;
-  background-color: #000;
+.carousel-item {
+  display: none;
+  width: 100%;
+  flex-shrink: 0;
+  transition: opacity 0.6s ease;
+  &.active {
+    display: flex;
+  }
+}
+
+.carousel-item .content {
+  flex: 1 1 50%;
+  padding-right: 40px;
+}
+
+.carousel-item .content .sale-badge {
+  background-color: #fff;
+  color: #dc3545;
+  padding: 20px;
+  border-radius: 20px;
+  font-weight: 700;
+  font-size: 24px;
+  margin-bottom: 15px;
+  letter-spacing: 10px;
+  text-transform: uppercase;
+  text-align: center;
+}
+
+.carousel-item h2 {
+  font-size: 30px;
+  font-weight: 700;
+}
+
+.carousel-item p {
+  font-size: 18px;
+  font-weight: 900;
+  color: #7fff00;
+  letter-spacing: 4px;
+}
+
+.carousel-item h3 {
+  font-size: 22px;
+  font-weight: 600;
+}
+
+.carousel-item .image-container {
+  flex: 1 1 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.carousel-item img {
+  max-height: 320px;
+  width: auto;
+  max-width: 100%;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+  object-fit: contain;
+}
+
+.carousel-indicators {
+  position: absolute;
+  bottom: 15px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  justify-content: center;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  z-index: 10;
+}
+
+.carousel-indicators li {
+  width: 16px;
+  height: 16px;
+  background-color: rgba(255, 255, 255, 0.6);
   border-radius: 50%;
-  margin: 0 5px;
-  opacity: 0.5;
-  transition: opacity 0.3s;
-  border: 2px solid #fff;
+  margin: 0 6px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  border: 2px solid transparent;
 }
 
-.carIndicators .active {
-  opacity: 2;
-  background-color: #d10000;
+.carousel-indicators li.active {
+  background-color: #e74c3c;
+  border-color: #fff;
 }
 
 
-.carItem {
-  height: 337px;
-  background-color: #000;
-}
+@media (max-width: 768px) {
+  .carousel-inner {
+    flex-direction: column;
+    height: auto;
+    padding: 20px;
+  }
 
-.carItem img {
-  height: 100%;
-  object-fit: cover;
-}
+  .carousel-item.active {
+    flex-direction: column;
+  }
 
-.red{
-    background-color: #ff0000;
-    padding: 10px;
+  .carousel-item .content,
+  .carousel-item .image-container {
+    flex: 1 1 100%;
+    padding: 0;
+    text-align: center;
+  }
+
+  .carousel-item h2 {
+    font-size: 2rem;
+  }
+
+  .carousel-item img {
+    max-height: 250px;
+    margin-top: 15px;
+  }
 }
