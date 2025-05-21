@@ -13,8 +13,6 @@ export class ProductsDashboardComponent implements OnInit {
   subcategory: string | null = null;
   productsArr: Iproduct[] = [];
   loading: boolean = true;
-  hoveredProductId: string | null = null;
-  stars: Array<number> = [0, 1, 2, 3, 4];
 
   constructor(
     private _route: ActivatedRoute,

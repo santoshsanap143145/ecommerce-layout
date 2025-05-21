@@ -1,0 +1,70 @@
+<div class="card h-100 border-0 prodCard" [routerLink]="product._id" *ngIf="product;">
+  <div
+    class="prodImg"
+    (mouseenter)="hoveredProductId = product._id"
+    (mouseleave)="hoveredProductId = null"
+  >
+    <img
+      [src]="product.images[0]"
+      class="main-img"
+      [class.hide]="hoveredProductId === product._id"
+      alt="Product"
+    />
+    <img
+      [src]="product.images[1]"
+      class="hover-img"
+      [class.show]="hoveredProductId === product._id"
+      alt="Product Hover"
+    />
+    <div class="discount-badge">{{ product.discount }}% OFF</div>
+
+    <div class="hoverIcons">
+      <button mat-mini-fab matTooltip="View details" matTooltipPosition="left">
+        <mat-icon>visibility</mat-icon>
+      </button>
+      <button mat-mini-fab matTooltip="Add favorite" matTooltipPosition="left">
+        <mat-icon>favorite</mat-icon>
+      </button>
+    </div>
+
+    <div class="btn-block" [class.show]="hoveredProductId === product._id">
+      <button class="btn">Add to Cart</button>
+    </div>
+  </div>
+
+  <div class="card-body prodInfo">
+    <h6 class="card-subtitle text-secondary text-right">
+      {{ product.subcategory }}
+    </h6>
+    <h5 class="card-title font-weight-bold">{{ product.title }}</h5>
+    <h6 class="card-text text-danger">
+      {{
+        +product.total_price.replace("$", "") -
+          (+product.total_price.replace("$", "") * product.discount) / 100
+          | currency : "USD" : "symbol"
+      }}
+      <small class="text-muted ml-2">
+        <s>{{ product.total_price }}</s>
+      </small>
+    </h6>
+
+    <div class="ratviews d-flex align-items-center mb-3">
+      <div class="rating d-flex align-items-center">
+        <ng-container *ngFor="let star of stars; let i = index">
+          <div class="starGroup">
+            <mat-icon class="star unfilled">star</mat-icon>
+            <mat-icon
+              class="star filled"
+              [ngStyle]="{ width: getStarFill(i, product.rating) }"
+            >
+              star
+            </mat-icon>
+          </div>
+        </ng-container>
+      </div>
+      <small class="text-muted ml-2 font-weight-bold"
+        >({{ product.reviews_count }})</small
+      >
+    </div>
+  </div>
+</div>

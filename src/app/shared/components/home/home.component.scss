@@ -1,6 +1,7 @@
 .category-list {
   color: #808080;
   font-weight: 500;
+  cursor: pointer;
   &:hover {
     color: #000;
     font-weight: 700;
@@ -16,17 +17,20 @@
   z-index: 10;
   background-color: #fff;
   font-weight: 500;
+
   li:hover {
     background-color: #f0f0f0;
     color: #000;
     font-weight: 700;
+    cursor: pointer;
   }
-}
 
-.margin-bottom {
-  margin-bottom: 100px;
-}
-
-.padding-top {
-  padding-top: 50px;
+  // Handle small screens: stack below instead of right
+  @media (max-width: 767.98px) {
+    position: static;
+    width: 100%;
+    box-shadow: none;
+    border: 2px solid #000;
+    transform: scale(0.92);
+  }
 }

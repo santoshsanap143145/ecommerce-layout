@@ -1,96 +1,102 @@
-<footer class="footer">
+<footer class="footer py-5">
   <div class="container-fluid">
     <div class="row">
       <!-- Exclusive Section -->
-      <div class="col">
+      <div class="col-sm-12 col-md-6 col-lg-2 offset-lg-1 mb-4">
         <h5>Exclusive</h5>
         <p class="mb-1">Subscribe</p>
-        <p class="text-muted">Get 10% off your first order</p>
-        <form (submit)="onSubscribe()">
+        <p class="text-muted small">Get 10% off your first order</p>
+        <form #subscribeForm="ngForm" (ngSubmit)="onSubscribe()" novalidate>
           <div class="input-group">
             <input
               type="email"
+              class="form-control bg-transparent text-white border-white"
+              placeholder="Enter your email"
               [(ngModel)]="email"
               name="email"
-              placeholder="Enter your email"
-              class="form-control"
               required
             />
-            <button type="submit" class="btn btn-outline-light">
-              <mat-icon style="font-size: 18px;">send</mat-icon>
-            </button>
+            <div class="input-group-append">
+              <button
+                class="btn btn-outline-light"
+                type="submit"
+                [disabled]="!subscribeForm.valid"
+              >
+                <mat-icon style="font-size: 18px">send</mat-icon>
+              </button>
+            </div>
           </div>
         </form>
       </div>
 
-      <!-- Support Section -->
-      <div class="col">
+      <!-- Support -->
+      <div class="col-sm-12 col-md-6 col-lg-2 mb-4">
         <h5>Support</h5>
-        <address>
-          111 Bijoy sarani, Dhaka,<br />
-          DH 1515, Bangladesh.<br />
-          <a href="mailto:exclusive@gmail.com" class="text-white"
-            >{{'exclusive@gmail.com'}}</a
-          ><br />
-          <a href="tel:+8801588888999" class="text-white">+88015-88888-9999</a>
+        <address class="mb-0">
+          111 Bijoy Sarani, Dhaka,<br />
+          DH 1515, Bangladesh<br />
+          <a href="mailto:exclusive@gmail.com" class="text-white d-block">{{
+            "exclusive@gmail.com"
+          }}</a>
+          <a href="tel:+8801588888999" class="text-white d-block"
+            >+88015-88888-9999</a
+          >
         </address>
       </div>
 
-      <!-- Account Section -->
-      <div class="col">
+      <!-- Account -->
+      <div class="col-sm-6 col-md-6 col-lg-2 mb-4">
         <h5>Account</h5>
         <ul class="list-unstyled">
-          <li><a href="#" class="text-white">My Account</a></li>
-          <li><a routerLink="/auth" class="text-white">Login / Register</a></li>
-          <li><a href="#" class="text-white">Cart</a></li>
-          <li><a href="#" class="text-white">Wishlist</a></li>
-          <li><a href="#" class="text-white">Shop</a></li>
+          <li><a href="#" class="footer-link">My Account</a></li>
+          <li>
+            <a routerLink="/auth" class="footer-link">Login / Register</a>
+          </li>
+          <li><a href="#" class="footer-link">Cart</a></li>
+          <li><a href="#" class="footer-link">Wishlist</a></li>
+          <li><a href="#" class="footer-link">Shop</a></li>
         </ul>
       </div>
 
-      <!-- Quick Link Section -->
-      <div class="col">
+      <!-- Quick Links -->
+      <div class="col-sm-6 col-md-6 col-lg-2 mb-4">
         <h5>Quick Link</h5>
         <ul class="list-unstyled">
-          <li><a href="#" class="text-white">Privacy Policy</a></li>
-          <li><a href="#" class="text-white">Terms Of Use</a></li>
-          <li><a href="#" class="text-white">FAQ</a></li>
-          <li><a href="#" class="text-white">Contact</a></li>
+          <li><a href="#" class="footer-link">Privacy Policy</a></li>
+          <li><a href="#" class="footer-link">Terms Of Use</a></li>
+          <li><a href="#" class="footer-link">FAQ</a></li>
+          <li><a href="#" class="footer-link">Contact</a></li>
         </ul>
       </div>
 
-      <!-- Download App Section -->
-      <div class="col">
+      <!-- App Download -->
+      <div class="col-sm-12 col-md-12 col-lg-2 mb-4">
         <h5>Download App</h5>
-        <p class="text-secondary" style="font-size: 12px">
-          Save $3 with App New User Only
-        </p>
-
-        <div class="row">
-          <div class="col-6 pr-1">
+        <p class="text-muted small">Save $3 with App New User Only</p>
+        <div class="row app-download-wrapper">
+          <div class="col-6 qr-col">
             <img
               src="https://randomqr.com/assets/images/randomqr-256.png"
-              alt="QR Code"
-              class="img-fluid"
-              style="height: 100%;"
+              alt="QR"
+              class="qr-img"
             />
           </div>
-          <div class="col-6 pl-1">
+          <div
+            class="col-6 store-col d-flex flex-column justify-content-between"
+          >
             <img
-              src="https://freelogopng.com/images/all_img/1664287128google-play-store-logo-png.png"
-              class="img-fluid"
+              src="https://upload.wikimedia.org/wikipedia/commons/7/78/Google_Play_Store_badge_EN.svg"
               alt="Google Play"
-              style="height: 50%;"
+              class="store-img mb-2"
             />
             <img
-              src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTzRNHdGo9kEMQfYp97VJI-cGl0FOb6NiCY3w&s"
-              class="img-fluid"
+              src="https://developer.apple.com/assets/elements/badges/download-on-the-app-store.svg"
               alt="App Store"
-              style="height: 50%;"
+              class="store-img"
             />
           </div>
         </div>
-        <div class="social mt-3">
+        <div class="social-icons mt-3">
           <i class="fa-brands fa-facebook-f"></i>
           <i class="fa-brands fa-twitter"></i>
           <i class="fa-brands fa-instagram"></i>
@@ -99,8 +105,8 @@
       </div>
     </div>
 
-    <div class="text-center mt-4 copyright">
-      © Copyright Rimel 2022. All right reserved
+    <div class="text-center mt-4 text-muted small">
+      &copy; Copyright Rimel 2022. All rights reserved.
     </div>
   </div>
 </footer>

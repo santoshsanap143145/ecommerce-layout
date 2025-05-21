@@ -1,51 +1,61 @@
-<div class="container-fluid margin-bottom" *ngIf="productsArr">
-  <div class="row">
-    <div class="col-2 offset-1 border-end border-secondary">
-      <ul class="list-group border-right border-dark padding-top">
-        <div
-          class="position-relative"
-          *ngFor="let cat of categoryWithSubcategoriesArr; let i = index"
-          (mouseenter)="hoveredCategoryIndex = i"
-          (mouseleave)="hoveredCategoryIndex = null"
-        >
-          <li
-            class="list-group-item category-list border-0 d-flex justify-content-between align-items-center"
-            style="cursor: pointer"
-            [routerLink]="['/products']"
-            [queryParams]="{ category: cat.category }"
-          >
-            <span>{{ cat.category }}</span>
-            <strong class="text-danger" style="font-size: 24px">{{
-              hoveredCategoryIndex === i ? ">" : ""
-            }}</strong>
-          </li>
+<main class="main">
+  <section class="thumbnail-section">
+    <div class="container-fluid mb-5" *ngIf="productsArr">
+      <div class="row">
+        <!-- Sidebar Categories -->
+        <div class="col-md-3 col-lg-2 border-right border-secondary pt-5">
+          <ul class="list-group">
+            <ng-container
+              *ngFor="let cat of categoryWithSubcategoriesArr; let i = index"
+            >
+              <div
+                class="position-relative"
+                (mouseenter)="hoveredCategoryIndex = i"
+                (mouseleave)="hoveredCategoryIndex = null"
+              >
+                <li
+                  class="list-group-item category-list border-0 d-flex justify-content-between align-items-center"
+                  [routerLink]="['/products']"
+                  [queryParams]="{ category: cat.category }"
+                >
+                  <span>{{ cat.category }}</span>
+                  <strong class="text-danger fs-4">{{
+                    hoveredCategoryIndex === i ? ">" : ""
+                  }}</strong>
+                </li>
 
-          <ul
-            class="list-group subcategory-list shadow"
-            *ngIf="hoveredCategoryIndex === i"
-          >
-            <li
-              class="list-group-item border-0"
-              style="cursor: pointer"
-              *ngFor="let sub of cat.subcategories"
-              [routerLink]="['/products']"
-              [queryParams]="{ category: cat.category, subcategory: sub }"
-            >
-              {{ sub }}
-            </li>
-            <li
-              class="list-group-item text-muted"
-              *ngIf="cat.subcategories.length === 0"
-            >
-              No subcategories
-            </li>
+                <ul
+                  class="list-group subcategory-list shadow"
+                  *ngIf="hoveredCategoryIndex === i"
+                >
+                  <li
+                    class="list-group-item border-0"
+                    *ngFor="let sub of cat.subcategories"
+                    [routerLink]="['/products']"
+                    [queryParams]="{
+                      category: cat.category,
+                      subcategory: sub
+                    }"
+                  >
+                    {{ sub }}
+                  </li>
+                  <li
+                    class="list-group-item text-muted"
+                    *ngIf="cat.subcategories.length === 0"
+                  >
+                    No subcategories
+                  </li>
+                </ul>
+              </div>
+            </ng-container>
           </ul>
         </div>
-      </ul>
-    </div>
 
-    <div class="col-8 padding-top">
-      <app-carousel></app-carousel>
+        <!-- Main Content -->
+        <div class="col-md-9 col-lg-10 pt-5">
+          <app-carousel></app-carousel>
+        </div>
+      </div>
     </div>
-  </div>
-</div>
+  </section>
+</main>

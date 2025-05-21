@@ -16,6 +16,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import Swiper from 'swiper';
 import { CarouselComponent } from './shared/components/carousel/carousel.component';
+import { ProductCardComponent } from './shared/components/product-card/product-card.component';
+import { ProductsShowcaseComponent } from './shared/components/products-showcase/products-showcase.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -27,6 +29,8 @@ import { CarouselComponent } from './shared/components/carousel/carousel.compone
     AboutComponent,
     ProductsDashboardComponent,
     CarouselComponent,
+    ProductCardComponent,
+    ProductsShowcaseComponent,
   ],
   imports: [
     BrowserModule,
