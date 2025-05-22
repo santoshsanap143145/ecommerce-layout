@@ -18,6 +18,7 @@ import Swiper from 'swiper';
 import { CarouselComponent } from './shared/components/carousel/carousel.component';
 import { ProductCardComponent } from './shared/components/product-card/product-card.component';
 import { ProductsShowcaseComponent } from './shared/components/products-showcase/products-showcase.component';
+import { CountdownTimerComponent } from './shared/components/countdown-timer/countdown-timer.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -31,6 +32,7 @@ import { ProductsShowcaseComponent } from './shared/components/products-showcase
     CarouselComponent,
     ProductCardComponent,
     ProductsShowcaseComponent,
+    CountdownTimerComponent,
   ],
   imports: [
     BrowserModule,

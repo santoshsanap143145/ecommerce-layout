@@ -11,13 +11,11 @@ import { ProductsService } from '../../services/products.service';
   styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent implements OnInit {
-
   productsArr!: Array<Iproduct>;
   categoryWithSubcategoriesArr!: Array<ICategoryWithSubcategories>;
   hoveredCategoryIndex: number | null = null;
   topRatedProductsArr: Iproduct[] = [];
 
-  
   constructor(private _productsService: ProductsService) {}
 
   ngOnInit(): void {
@@ -28,6 +26,11 @@ export class HomeComponent implements OnInit {
     this._productsService.fetchAllProducts().subscribe({
       next: (res) => {
         this.productsArr = res;
+        console.log(this.productsArr);
+        this.productsArr = this.productsArr.map((prod) => ({
+          ...prod,
+          discount: (Math.floor(Math.random() * 10) + 1) * 5,
+        }));
 
         const categories = [...new Set(res.map((p) => p.category))];
         const categoryWithSubcategoriesArr = categories.map((category) => {
@@ -43,12 +46,12 @@ export class HomeComponent implements OnInit {
         });
 
         this.categoryWithSubcategoriesArr = categoryWithSubcategoriesArr;
-        
+        console.log(this.categoryWithSubcategoriesArr);
+
         this.topRatedProductsArr = this.getTopRatedProductPerCategory();
       },
     });
   }
-
 
   onHover(index: number) {
     this.hoveredCategoryIndex = index;
@@ -59,23 +62,23 @@ export class HomeComponent implements OnInit {
   }
 
   getTopRatedProductPerCategory(): Iproduct[] {
-  const topRatedProducts: Iproduct[] = [];
+    const topRatedProducts: Iproduct[] = [];
 
-  for (const item of this.categoryWithSubcategoriesArr) {
-    const category = item.category;
+    for (const item of this.categoryWithSubcategoriesArr) {
+      const category = item.category;
 
-    const productsInCategory = this.productsArr.filter(
-      (product) => product.category?.toLowerCase() === category.toLowerCase()
-    );
-
-    if (productsInCategory.length > 0) {
-      const sorted = productsInCategory.sort(
-        (a, b) => (b.rating || 0) - (a.rating || 0)
+      const productsInCategory = this.productsArr.filter(
+        (product) => product.category?.toLowerCase() === category.toLowerCase()
       );
-      topRatedProducts.push(sorted[0]);
-    }
-  }
 
-  return topRatedProducts;
-}
+      if (productsInCategory.length > 0) {
+        const sorted = productsInCategory.sort(
+          (a, b) => (b.rating || 0) - (a.rating || 0)
+        );
+        topRatedProducts.push(sorted[0]);
+      }
+    }
+
+    return topRatedProducts;
+  }
 }

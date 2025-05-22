@@ -1,6 +1,6 @@
 <main class="main">
   <section class="thumbnail-section">
-    <div class="container-fluid mb-5" *ngIf="productsArr">
+    <div class="container-fluid" *ngIf="productsArr">
       <div class="row">
         <!-- Sidebar Categories -->
         <div
@@ -64,18 +64,14 @@
   <section class="flashsell">
     <div class="container-fluid">
       <div class="row">
-        <div class="col-lg-2 offset-lg-1">
+        <div class="col-lg-11 offset-lg-1">
           <div class="heading">
             <div class="block text-danger rounded"></div>
-            <h5 class="text-danger m-0 ml-3">Today's</h5>
+            <h6 class="text-danger m-0 ml-3">Today's</h6>
           </div>
         </div>
       </div>
-      <div class="row">
-        <div class="col-12">
-          <app-products-showcase></app-products-showcase>
-        </div>
-      </div>
+      <app-products-showcase [productsArr]="topRatedProductsArr"></app-products-showcase>
     </div>
   </section>
 </main>

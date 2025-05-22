@@ -1,6 +1,33 @@
+<div class="row align-items-end margin-40">
+  <div class="col-lg-2 offset-lg-1 d-flex align-items-end mr-5">
+    <h2 class="mb-0"><strong>Flash Sales</strong></h2>
+  </div>
+
+  <div class="col-lg-6 d-flex align-items-end ml-5">
+    <app-countdown-timer></app-countdown-timer>
+  </div>
+
+  <div class="col-lg-2 d-flex justify-content-end align-items-end">
+    <button
+      (click)="scrollLeft()"
+      class="rounded-circle border-0 p-1 d-flex justify-content-center align-items-center"
+    >
+      <mat-icon>arrow_back</mat-icon>
+    </button>
+    <button
+      (click)="scrollRight()"
+      class="rounded-circle border-0 p-1 ml-2 d-flex justify-content-center align-items-center"
+    >
+      <mat-icon>arrow_forward</mat-icon>
+    </button>
+  </div>
+</div>
 <div class="row">
-    <div class="col-2"></div>
-    <div class="col-lg-3">
-        <app-product-card></app-product-card>
+  <div class="product-cards-wrapper" #scrollContainer>
+    <div class="product-cards-container h-100">
+      <div class="product-card" *ngFor="let prod of productsArr">
+        <app-product-card [product]="prod"></app-product-card>
+      </div>
     </div>
+  </div>
 </div>

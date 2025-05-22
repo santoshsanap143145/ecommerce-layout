@@ -1,24 +1,52 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { Iproduct } from '../../models/products.model';
-import { ProductsService } from '../../services/products.service';
-
 @Component({
   selector: 'app-products-showcase',
   templateUrl: './products-showcase.component.html',
-  styleUrls: ['./products-showcase.component.scss']
+  styleUrls: ['./products-showcase.component.scss'],
 })
 export class ProductsShowcaseComponent implements OnInit {
-  productsArr!: Array<Iproduct>
-  constructor(private _productService: ProductsService) { }
+  @Input() productsArr!: Array<Iproduct>;
 
-  ngOnInit(): void {
-    this.getProducts()
+  @ViewChild('scrollContainer', { static: false }) scrollContainer!: ElementRef;
+  private intervalId: any;
+
+  constructor() {}
+
+  ngOnInit(): void {}
+
+  ngAfterViewInit(): void {
+    this.startAutoScroll();
   }
 
-  getProducts(){
-    this._productService.fetchSomeProducts().subscribe(res => {
-      this.productsArr = res.data
-      console.log(this.productsArr);
-    })
+  startAutoScroll() {
+    this.intervalId = setInterval(() => {
+      const el = this.scrollContainer.nativeElement;
+      if (el.scrollLeft >= el.scrollWidth - el.clientWidth) {
+        // Jump instantly back to start without animation
+        el.scrollLeft = 0;
+      } else {
+        // Scroll a little bit right smoothly
+        el.scrollLeft += 2;
+      }
+    }, 20);
+  }
+
+  scrollLeft() {
+    this.scrollContainer.nativeElement.scrollBy({
+      left: -250,
+      behavior: 'smooth',
+    });
+  }
+
+  scrollRight() {
+    this.scrollContainer.nativeElement.scrollBy({
+      left: 250,
+      behavior: 'smooth',
+    });
+  }
+
+  ngOnDestroy(): void {
+    clearInterval(this.intervalId);
   }
 }
