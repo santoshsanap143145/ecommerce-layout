@@ -1,0 +1,154 @@
+.mainImg {
+  text-align: center;
+  height: 500px;
+  padding-top: 20px;
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+}
+
+.altImgs {
+  margin: 20px 0 20px 10px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+
+  .imgGroup {
+    padding: 10px;
+    border: 2px solid #ccc;
+    border-radius: 8px;
+    background-color: #fff;
+    cursor: pointer;
+    transition: all 0.3s ease;
+
+    img {
+      width: 65px;
+      height: 65px;
+      object-fit: cover;
+      display: block;
+    }
+
+    &:hover {
+      transform: scale(1.1);
+    }
+
+    &.active {
+      border-color: orange;
+    }
+  }
+}
+
+.ratviews {
+  .rating {
+    display: flex;
+    align-items: center;
+    margin-right: 10px;
+  }
+
+  .starGroup {
+    position: relative;
+    width: 20px;
+    height: 20px;
+  }
+
+  .star {
+    font-size: 20px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    color: #ccc;
+  }
+
+  .star.filled {
+    color: #ffa500;
+    overflow: hidden;
+  }
+}
+
+.prodLink {
+  color: rgb(8, 87, 206);
+  cursor: pointer;
+  &:is(:hover, :active) {
+    color: orangered;
+    text-decoration: underline;
+  }
+}
+
+.heading-info {
+  border-bottom: 1px solid rgb(221, 217, 217);
+}
+
+.orderCount {
+  display: flex;
+  align-items: center;
+
+  .min {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 2px solid #dedede;
+    &:active {
+      background-color: #f99f39;
+    }
+  }
+
+  .orderCount {
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    margin: 0 8px;
+    display: flex;
+    justify-content: center;
+    font-size: 14px;
+    align-items: center;
+    color: #fd0808;
+  }
+
+  .plus {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 2px solid #dedede;
+    &:active {
+      background-color: #f99f39;
+    }
+  }
+}
+
+.tags {
+  margin-bottom: 30px;
+  span {
+    display: inline-block;
+    color: #fff;
+    background-color: #7b7b78;
+    padding: 5px;
+    margin-left: 6px;
+    border-radius: 5px;
+    font-size: 16px;
+    margin-top: 12px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.4s ease;
+    &:is(:hover, :active, :focus) {
+      background-color: #fff;
+      color: #7b7b78;
+      border: 1px solid #7b7b78;
+    }
+  }
+}
+
+::ng-deep .mat-tab-group .mat-tab-label {
+  color: #000;
+  font-weight: bold;
+}
+
+::ng-deep .mat-tab-group .mat-tab-label.mat-tab-label-active {
+  color: #ff0000;
+  font-weight: bold;
+}
+
+::ng-deep .mat-tab-group.mat-primary .mat-ink-bar {
+  background-color: #ff0000;
+}

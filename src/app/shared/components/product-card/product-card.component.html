@@ -1,4 +1,8 @@
-<div class="card h-100 border-0 prodCard" [routerLink]="product._id" *ngIf="product;">
+<div
+  class="card h-100 border-0 prodCard"
+  [routerLink]="['/products', product._id]"
+  *ngIf="product"
+>
   <div
     class="prodImg"
     (mouseenter)="hoveredProductId = product._id"

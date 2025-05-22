@@ -3,6 +3,9 @@
   overflow-y: hidden;
   padding-bottom: 1rem;
   margin-left: 1rem;
+
+  scroll-behavior: smooth; // for smooth scrolling when arrows clicked
+
   &::-webkit-scrollbar {
     display: none;
   }

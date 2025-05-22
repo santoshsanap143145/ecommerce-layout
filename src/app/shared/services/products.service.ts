@@ -1,53 +1,46 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
-import { IprodResponse, Iproduct } from '../models/products.model';
-import { map, Observable, tap } from 'rxjs';
+import { Iproduct } from '../models/products.model';
+import { map, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ProductsService {
   BASE_URL: string = `${environment.baseUrl}`;
-  PRODUCT_URL: string = `${this.BASE_URL}/products`;
-
-  LIMIT_BASE_URL: string = `${environment.base_url_limit}`;
-  LIMITED_PRODUCTS_URL: string = `${this.LIMIT_BASE_URL}/products`;
+  PRODUCT_FILTER_URL: string = `${this.BASE_URL}/products/filter`;
+  ALL_PRODUCTS_URL: string = `${this.BASE_URL}/products`;
 
   constructor(private _http: HttpClient) {}
 
-  fetchAllProducts(): Observable<Array<Iproduct>> {
-    return this._http.get<Array<Iproduct>>(this.PRODUCT_URL);
-  }
-
-  getProductsPaginated(
-    category?: string,
-    subcategory?: string,
-    skip: number = 0,
+  // For category or subcategory filtered products with pagination
+  getProductsByCategory(
+    category: string = '',
+    subcategory: string = '',
+    page: number = 1,
     limit: number = 10
   ): Observable<Iproduct[]> {
-    let url = '';
-
-    if (category || subcategory) {
-      url = `${this.BASE_URL}/products/filter?limit=${limit}&skip=${skip}`;
-      if (category) {
-        url += `&category=${encodeURIComponent(category)}`;
-      }
-      if (subcategory) {
-        url += `&subcategory=${encodeURIComponent(subcategory)}`;
-      }
-    } else {
-      url = `${this.LIMITED_PRODUCTS_URL}?limit=${limit}&skip=${skip}`;
+    let url = `${this.PRODUCT_FILTER_URL}?page=${page}&limit=${limit}`;
+    if (category) {
+      url += `&category=${encodeURIComponent(category)}`;
     }
-
+    if (subcategory) {
+      url += `&subcategory=${encodeURIComponent(subcategory)}`;
+    }
     return this._http.get<Iproduct[]>(url);
   }
 
-  fetchSomeProducts(): Observable<Iproduct[]> {
-  return this._http.get<IprodResponse>(this.LIMITED_PRODUCTS_URL)
-  .pipe(
-    tap(response => console.log('Raw response:', response)), // for debugging
-    map(response => response.data)
-  );
-}
+  // For all products paginated
+  getAllProducts(page: number = 1, limit: number = 10): Observable<Iproduct[]> {
+    const url = `${this.ALL_PRODUCTS_URL}?page=${page}&limit=${limit}`;
+    // Assuming this returns { data: Iproduct[] } structure
+    return this._http.get<{ data: Iproduct[] }>(url).pipe(
+      map(response => response.data)
+    );
+  }
+
+  getProduct(prodId: string): Observable<Iproduct> {
+    return this._http.get<Iproduct>(`${this.ALL_PRODUCTS_URL}/${prodId}`);
+  }
 }

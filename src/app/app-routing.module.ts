@@ -5,6 +5,7 @@ import { HomeComponent } from './shared/components/home/home.component';
 import { ContactComponent } from './shared/components/contact/contact.component';
 import { AboutComponent } from './shared/components/about/about.component';
 import { ProductsDashboardComponent } from './shared/components/products-dashboard/products-dashboard.component';
+import { SingleProductComponent } from './shared/components/single-product/single-product.component';
 
 const routes: Routes = [
   {
@@ -21,16 +22,20 @@ const routes: Routes = [
     pathMatch: 'full'
   },
   {
+    path: 'products',
+    component: ProductsDashboardComponent
+  },
+  {
+    path: 'products/:prodid',
+    component: SingleProductComponent,
+  },
+  {
     path: 'contact',
     component: ContactComponent
   },
   {
     path: 'about',
     component: AboutComponent
-  },
-  {
-    path: 'products',
-    component: ProductsDashboardComponent
   },
   
 ];

@@ -19,6 +19,7 @@ import { CarouselComponent } from './shared/components/carousel/carousel.compone
 import { ProductCardComponent } from './shared/components/product-card/product-card.component';
 import { ProductsShowcaseComponent } from './shared/components/products-showcase/products-showcase.component';
 import { CountdownTimerComponent } from './shared/components/countdown-timer/countdown-timer.component';
+import { SingleProductComponent } from './shared/components/single-product/single-product.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -33,6 +34,7 @@ import { CountdownTimerComponent } from './shared/components/countdown-timer/cou
     ProductCardComponent,
     ProductsShowcaseComponent,
     CountdownTimerComponent,
+    SingleProductComponent,
   ],
   imports: [
     BrowserModule,

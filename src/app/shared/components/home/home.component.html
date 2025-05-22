@@ -1,9 +1,10 @@
-<main class="main">
+<main class="main" *ngIf="productsArr">
   <section class="thumbnail-section">
-    <div class="container-fluid" *ngIf="productsArr">
-      <div class="row">
+    <div class="container-fluid">
+      <div class="row" *ngIf="categoryWithSubcategoriesArr">
         <!-- Sidebar Categories -->
         <div
+          
           class="col-md-3 col-lg-2 offset-lg-1 border-right border-secondary pt-5"
         >
           <ul class="list-group">
@@ -55,7 +56,10 @@
 
         <!-- Main Content -->
         <div class="col-md-9 col-lg-8 pt-5">
-          <app-carousel [topRatedProducts]="topRatedProductsArr"></app-carousel>
+          <app-carousel
+            *ngIf="topRatedProductsArr?.length"
+            [topRatedProducts]="topRatedProductsArr"
+          ></app-carousel>
         </div>
       </div>
     </div>
@@ -71,7 +75,16 @@
           </div>
         </div>
       </div>
-      <app-products-showcase [productsArr]="topRatedProductsArr"></app-products-showcase>
+      <app-products-showcase
+        [productsArr]="topRatedProductsArr"
+      ></app-products-showcase>
+      <div class="row">
+        <div class="col-lg-2 offset-lg-5">
+          <button routerLink="/products" class="btn btn-block btn-danger">
+            View All Products
+          </button>
+        </div>
+      </div>
     </div>
   </section>
 </main>

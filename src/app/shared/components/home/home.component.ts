@@ -4,6 +4,7 @@ import {
   Iproduct,
 } from '../../models/products.model';
 import { ProductsService } from '../../services/products.service';
+import { EMPTY, expand, map, reduce, takeWhile } from 'rxjs';
 
 @Component({
   selector: 'app-home',
@@ -11,46 +12,64 @@ import { ProductsService } from '../../services/products.service';
   styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent implements OnInit {
-  productsArr!: Array<Iproduct>;
-  categoryWithSubcategoriesArr!: Array<ICategoryWithSubcategories>;
+  productsArr: Iproduct[] = [];
+  categoryWithSubcategoriesArr: ICategoryWithSubcategories[] = [];
   hoveredCategoryIndex: number | null = null;
   topRatedProductsArr: Iproduct[] = [];
 
   constructor(private _productsService: ProductsService) {}
 
   ngOnInit(): void {
-    this.getAllProducts();
+    this.loadAllProductsPaginated();
   }
 
-  getAllProducts() {
-    this._productsService.fetchAllProducts().subscribe({
-      next: (res) => {
-        this.productsArr = res;
-        console.log(this.productsArr);
-        this.productsArr = this.productsArr.map((prod) => ({
+  loadAllProductsPaginated(): void {
+    const limit = 20;
+    let page = 1;
+
+    this._productsService.getAllProducts(page, limit).pipe(
+      expand((res) => {
+        // Stop expanding when less than limit returned
+        if (res.length < limit) return EMPTY;
+        page++;
+        return this._productsService.getAllProducts(page, limit);
+      }),
+      reduce((acc, curr) => [...acc, ...curr], [] as Iproduct[])
+    ).subscribe({
+      next: (allProducts: Iproduct[]) => {
+        this.productsArr = allProducts.map((prod) => ({
           ...prod,
           discount: (Math.floor(Math.random() * 10) + 1) * 5,
         }));
 
-        const categories = [...new Set(res.map((p) => p.category))];
-        const categoryWithSubcategoriesArr = categories.map((category) => {
-          const subcategoriesSet = new Set(
-            res
-              .filter((p) => p.category === category && p.subcategory)
-              .map((p) => p.subcategory)
-          );
-          return {
-            category: category,
-            subcategories: [...subcategoriesSet],
-          };
-        });
-
-        this.categoryWithSubcategoriesArr = categoryWithSubcategoriesArr;
-        console.log(this.categoryWithSubcategoriesArr);
-
+        this.buildCategoryStructure();
         this.topRatedProductsArr = this.getTopRatedProductPerCategory();
       },
+      error: (err) => {
+        console.error('Error loading paginated products:', err);
+      }
     });
+  }
+
+  buildCategoryStructure(): void {
+    const categoryMap = new Map<string, Set<string>>();
+
+    this.productsArr.forEach((prod) => {
+      if (!categoryMap.has(prod.category)) {
+        categoryMap.set(prod.category, new Set());
+      }
+
+      if (prod.subcategory) {
+        categoryMap.get(prod.category)!.add(prod.subcategory);
+      }
+    });
+
+    this.categoryWithSubcategoriesArr = Array.from(categoryMap.entries()).map(
+      ([category, subSet]) => ({
+        category,
+        subcategories: Array.from(subSet),
+      })
+    );
   }
 
   onHover(index: number) {

@@ -1,52 +1,57 @@
-import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { Iproduct } from '../../models/products.model';
+
 @Component({
   selector: 'app-products-showcase',
   templateUrl: './products-showcase.component.html',
-  styleUrls: ['./products-showcase.component.scss'],
+  styleUrls: ['./products-showcase.component.scss']
 })
-export class ProductsShowcaseComponent implements OnInit {
-  @Input() productsArr!: Array<Iproduct>;
+export class ProductsShowcaseComponent implements OnInit, OnDestroy {
+  @Input() productsArr: Iproduct[] = []; // Populate this from your parent or service
 
-  @ViewChild('scrollContainer', { static: false }) scrollContainer!: ElementRef;
-  private intervalId: any;
+  @ViewChild('scrollContainer', { static: true }) scrollContainer!: ElementRef;
 
-  constructor() {}
+  private scrollIntervalId: any;
+  private scrollSpeedMs = 60; // time between scroll steps
+  private scrollStepPx = 4;   // px scrolled per interval
+  private isPaused = false;
 
-  ngOnInit(): void {}
-
-  ngAfterViewInit(): void {
+  ngOnInit(): void {
     this.startAutoScroll();
   }
 
+  ngOnDestroy(): void {
+    this.stopAutoScroll();
+  }
+
   startAutoScroll() {
-    this.intervalId = setInterval(() => {
-      const el = this.scrollContainer.nativeElement;
-      if (el.scrollLeft >= el.scrollWidth - el.clientWidth) {
-        // Jump instantly back to start without animation
-        el.scrollLeft = 0;
-      } else {
-        // Scroll a little bit right smoothly
-        el.scrollLeft += 2;
+    this.scrollIntervalId = setInterval(() => {
+      if (!this.isPaused && this.scrollContainer?.nativeElement) {
+        this.scrollContainer.nativeElement.scrollLeft += this.scrollStepPx;
       }
-    }, 20);
+    }, this.scrollSpeedMs);
+  }
+
+  stopAutoScroll() {
+    if (this.scrollIntervalId) {
+      clearInterval(this.scrollIntervalId);
+      this.scrollIntervalId = null;
+    }
+  }
+
+  onMouseEnter() {
+    this.isPaused = true;
+  }
+
+  onMouseLeave() {
+    this.isPaused = false;
   }
 
   scrollLeft() {
-    this.scrollContainer.nativeElement.scrollBy({
-      left: -250,
-      behavior: 'smooth',
-    });
+    this.scrollContainer.nativeElement.scrollLeft -= 200;
   }
 
   scrollRight() {
-    this.scrollContainer.nativeElement.scrollBy({
-      left: 250,
-      behavior: 'smooth',
-    });
-  }
-
-  ngOnDestroy(): void {
-    clearInterval(this.intervalId);
+    this.scrollContainer.nativeElement.scrollLeft += 200;
   }
 }
