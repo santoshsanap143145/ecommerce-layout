@@ -22,14 +22,8 @@
     </button>
   </div>
 </div>
-
 <div class="row py-5">
-  <div
-    class="product-cards-wrapper"
-    #scrollContainer
-    (mouseenter)="onMouseEnter()"
-    (mouseleave)="onMouseLeave()"
-  >
+  <div class="product-cards-wrapper" #scrollContainer>
     <div class="product-cards-container h-100">
       <div class="product-card" *ngFor="let prod of productsArr">
         <app-product-card [product]="prod"></app-product-card>

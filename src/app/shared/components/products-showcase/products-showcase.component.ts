@@ -1,57 +1,69 @@
-import { Component, ElementRef, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { Iproduct } from '../../models/products.model';
-
 @Component({
   selector: 'app-products-showcase',
   templateUrl: './products-showcase.component.html',
-  styleUrls: ['./products-showcase.component.scss']
+  styleUrls: ['./products-showcase.component.scss'],
 })
-export class ProductsShowcaseComponent implements OnInit, OnDestroy {
-  @Input() productsArr: Iproduct[] = []; // Populate this from your parent or service
+export class ProductsShowcaseComponent implements OnInit {
+  @Input() productsArr!: Array<Iproduct>;
 
-  @ViewChild('scrollContainer', { static: true }) scrollContainer!: ElementRef;
+  @ViewChild('scrollContainer', { static: false }) scrollContainer!: ElementRef;
+  private intervalId: any;
+  private resumeTimeout: any;
 
-  private scrollIntervalId: any;
-  private scrollSpeedMs = 60; // time between scroll steps
-  private scrollStepPx = 4;   // px scrolled per interval
-  private isPaused = false;
+  constructor() {}
 
-  ngOnInit(): void {
+  ngOnInit(): void {}
+
+  ngAfterViewInit(): void {
     this.startAutoScroll();
   }
 
-  ngOnDestroy(): void {
-    this.stopAutoScroll();
-  }
-
   startAutoScroll() {
-    this.scrollIntervalId = setInterval(() => {
-      if (!this.isPaused && this.scrollContainer?.nativeElement) {
-        this.scrollContainer.nativeElement.scrollLeft += this.scrollStepPx;
+    clearInterval(this.intervalId);
+    this.intervalId = setInterval(() => {
+      const el = this.scrollContainer.nativeElement;
+      if (el.scrollLeft >= el.scrollWidth - el.clientWidth) {
+       
+        el.scrollLeft = 0;
+      } else {
+        
+        el.scrollLeft += 2;
       }
-    }, this.scrollSpeedMs);
-  }
-
-  stopAutoScroll() {
-    if (this.scrollIntervalId) {
-      clearInterval(this.scrollIntervalId);
-      this.scrollIntervalId = null;
-    }
-  }
-
-  onMouseEnter() {
-    this.isPaused = true;
-  }
-
-  onMouseLeave() {
-    this.isPaused = false;
+    }, 20);
   }
 
   scrollLeft() {
-    this.scrollContainer.nativeElement.scrollLeft -= 200;
+    clearInterval(this.intervalId);
+    clearTimeout(this.resumeTimeout);
+
+    this.scrollContainer.nativeElement.scrollBy({
+      left: -250,
+      behavior: 'smooth',
+    });
+
+    this.resumeTimeout = setTimeout(() => {
+      this.startAutoScroll();
+    }, 3000);
   }
 
   scrollRight() {
-    this.scrollContainer.nativeElement.scrollLeft += 200;
+    clearInterval(this.intervalId);
+    clearTimeout(this.resumeTimeout);
+
+    this.scrollContainer.nativeElement.scrollBy({
+      left: 250,
+      behavior: 'smooth',
+    });
+
+    this.resumeTimeout = setTimeout(() => {
+      this.startAutoScroll();
+    }, 3000);
+  }
+
+  ngOnDestroy(): void {
+    clearInterval(this.intervalId);
+    clearTimeout(this.resumeTimeout);
   }
 }
